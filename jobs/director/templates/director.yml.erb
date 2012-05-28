@@ -53,6 +53,24 @@ cloud:
       password: <%= properties.aws_registry.http.password %>
     stemcell:
       kernel_id: <%= properties.aws.stemcell.kernel_id %>
+  <% elsif properties.openstack %>
+  <% user    = properties.openstack_registry.http.user %>
+  <% pass    = properties.openstack_registry.http.password %>
+  <% address = properties.openstack_registry.address %>
+  <% port    = properties.openstack_registry.http.port %>
+  plugin: openstack
+  properties:
+    openstack:
+      auth_url: <%= properties.openstack.auth_url %>
+      username: <%= properties.openstack.username %>
+      api_key: <%= properties.openstack.api_key %>
+      tenant: <%= properties.openstack.tenant %>
+    registry:
+      endpoint: http://<%= user %>:<%= pass %>@<%= address %>:<%= port %>
+      user: <%= properties.openstack_registry.http.user %>
+      password: <%= properties.openstack_registry.http.password %>
+    stemcell:
+      kernel_id: <%= properties.openstack.stemcell.kernel_id %>
   <% else %>
   plugin: vsphere
   properties:
