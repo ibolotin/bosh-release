@@ -3,18 +3,20 @@
 RUN_DIR=/var/vcap/sys/run/openstack_registry
 LOG_DIR=/var/vcap/sys/log/openstack_registry
 PIDFILE=$RUN_DIR/openstack_registry.pid
+RUNAS=vcap
 
 export PATH=/var/vcap/packages/ruby/bin:$PATH
 
 case $1 in
 
   start)
-    mkdir -p $RUN_DIR
-    mkdir -p $LOG_DIR
+    mkdir -p $RUN_DIR $LOG_DIR
+    chown -R $RUNAS:$RUNAS $RUN_DIR $LOG_DIR
 
     echo $$ > $PIDFILE
 
-    exec /var/vcap/packages/openstack_registry/bosh/openstack_registry/bin/openstack_registry \
+    exec chpst -u $RUNAS:$RUNAS \
+      /var/vcap/packages/openstack_registry/bosh/openstack_registry/bin/openstack_registry \
       -c /var/vcap/jobs/openstack_registry/config/openstack_registry.yml \
       >>$LOG_DIR/openstack_registry.stdout.log 2>>$LOG_DIR/openstack_registry.stderr.log
     ;;
