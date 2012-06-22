@@ -5,6 +5,9 @@ jobs/micro/templates/
 jobs/micro_aws/monit
 jobs/micro_aws/spec
 jobs/micro_aws/templates/
+jobs/micro_openstack/monit
+jobs/micro_openstack/spec
+jobs/micro_openstack/templates/
 config/dev.yml
 config/private.yml
 releases/*.tgz
