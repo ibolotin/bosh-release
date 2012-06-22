@@ -55,6 +55,7 @@ plugins:
         from: <%= properties.hm.smtp.from %>
         host: <%= properties.hm.smtp.host %>
         port: <%= properties.hm.smtp.port %>
+        tls: <%= properties.hm.smtp.tls %>
         auth: <%= properties.hm.smtp.auth %>
         user: <%= properties.hm.smtp.user %>
         password: <%= properties.hm.smtp.password %>
@@ -69,4 +70,13 @@ plugins:
     options:
       host: <%= properties.hm.tsdb.address %>
       port: <%= properties.hm.tsdb.port %>
+  <% end %>
+
+  <% if properties.hm.pagerduty_enabled %>
+  - name: pagerduty
+    events:
+      - alert
+    options:
+      service_key: <%= properties.hm.pagerduty.service_key %>
+      http_proxy: <%= properties.hm.pagerduty.http_proxy %>
   <% end %>
